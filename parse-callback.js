@@ -17,10 +17,12 @@ function naive() {
 
                 let line = parsed[index];
 
-                // FIXME: Put your transformation here
+                let firstName = line.shift();
+                let lastName = line.shift();
+                line.unshift(`${firstName} ${lastName}`);
 
                 if (index > 0) {
-                    debug(`sending data index: ${index - 1}`);
+                    debug(`sending data index: ${index - 1} ${line}`);
 
                     helper.sendSms(line, function afterSending(err, sendingStatus) {
                         let lineToLog;
