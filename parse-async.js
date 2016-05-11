@@ -17,16 +17,17 @@ function asyncApproach() {
                 debug(`sending data index: ${index - 1}`);
                 if (index > 0) {
                     async.waterfall([
-                        function(callback) {
+                        function (callback) {
                             helper.sendSms(line, callback);
                         },
-                        function(sendingStatus, callback) {
+
+                        function (sendingStatus, callback) {
                             let lineToLog = {
                                 sendingStatus,
                                 line,
                             };
                             helper.logToS3(lineToLog, callback);
-                        }
+                        },
                     ], function (err, result) {
                         if (err) {
                             debug(err.message);
