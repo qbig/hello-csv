@@ -40,8 +40,10 @@ exports.logToS3 = function(data, callback) {
 };
 
 exports.transformLineToUseFullName = function(lineArr) {
-    let firstName = lineArr.shift();
-    let lastName = lineArr.shift();
-    lineArr.unshift(`${firstName} ${lastName}`); // full name
-    return lineArr;
+    let newLine = lineArr.slice();
+
+    let firstName = newLine.shift();
+    let lastName = newLine.shift();
+    newLine.unshift(`${firstName} ${lastName}`); // full name
+    return newLine;
 }
