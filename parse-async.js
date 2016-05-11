@@ -7,9 +7,6 @@ const parse = require('csv-parse');
 const helper = require('./helper');
 const async = require('async');
 
-
-// 0. Naïve
-
 function asyncApproach() {
     fs.readFile(__dirname + '/sample.csv', function thenParse(err, loadedCsv) {
 
