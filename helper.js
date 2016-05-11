@@ -6,6 +6,11 @@ const AWS = require('mock-aws-s3');
 AWS.config.basePath = __dirname + '/buckets';
 
 const s3 = AWS.S3({ params: { Bucket: 'example' } });
+const SMS_ERROR = 'sending-sms';
+const LOGGING_ERROR = 'log-to-s3';
+
+exports.SMS_ERROR = SMS_ERROR;
+exports.LOGGING_ERROR = LOGGING_ERROR;
 
 function surprise(name) {
     if (Math.floor(Math.random() * 100) + 1 <= 50) {
@@ -18,7 +23,7 @@ exports.sendSms = function(data, callback) {
 
     setTimeout(() => {
         debug(`sending out sms: ${JSON.stringify(data)}`);
-        callback(surprise('sending-sms'), {
+        callback(surprise(SMS_ERROR), {
             status: 200,
             message: 'OK',
         });
@@ -34,7 +39,7 @@ exports.logToS3 = function(data, callback) {
             Key: `row/line-${new Date().valueOf()}.json`,
             Body: JSON.stringify(data),
         }, (err) => {
-            callback(err ? err : surprise('log-to-s3'), { data, logged: true });
+            callback(err ? err : surprise(LOGGING_ERROR), { data, logged: true });
         });
     });
 };

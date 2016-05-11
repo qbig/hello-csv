@@ -20,23 +20,19 @@ function naive() {
                     debug(`sending data index: ${index - 1}`);
 
                     helper.sendSms(line, function afterSending(err, sendingStatus) {
-                        let lineToLog;
                         if (err) {
                             debug(err.message);
-
-                            lineToLog = {
-                                sendingStatus,
-                                line,
-                            };
                         }
 
-                        if (lineToLog) {
-                            helper.logToS3(lineToLog, function afterLogging(err, loggingStatus) {
-                                if (err) {
-                                    debug(err.message);
-                                }
-                            });
-                        }
+                        let lineToLog = {
+                            sendingStatus,
+                            line,
+                        };
+                        helper.logToS3(lineToLog, function afterLogging(err, loggingStatus) {
+                            if (err) {
+                                debug(err.message);
+                            }
+                        });
                     });
                 }
             }
