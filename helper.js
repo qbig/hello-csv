@@ -38,3 +38,10 @@ exports.logToS3 = function(data, callback) {
         });
     });
 };
+
+exports.transformLineToUseFullName = function(lineArr) {
+    let firstName = lineArr.shift();
+    let lastName = lineArr.shift();
+    lineArr.unshift(`${firstName} ${lastName}`); // full name
+    return lineArr;
+}

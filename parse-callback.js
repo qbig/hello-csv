@@ -15,14 +15,9 @@ function naive() {
 
             for (let index in parsed) {
 
-                let line = parsed[index];
-
-                let firstName = line.shift();
-                let lastName = line.shift();
-                line.unshift(`${firstName} ${lastName}`);
-
                 if (index > 0) {
-                    debug(`sending data index: ${index - 1} ${line}`);
+                    let line = helper.transformLineToUseFullName(parsed[index]);
+                    debug(`sending data index: ${index - 1}`);
 
                     helper.sendSms(line, function afterSending(err, sendingStatus) {
                         let lineToLog;
