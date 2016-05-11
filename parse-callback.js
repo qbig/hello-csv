@@ -42,12 +42,9 @@ function naive() {
                         }
                     });
                 }
-
-                index++;
             }
         });
     });
 }
 
 naive();
-
